@@ -721,8 +721,7 @@ def ask_town_and_district(message):
             return
 
         user.town_and_district = town_and_district
-        user.town = 'Null'
-        user.district = 'Null'
+        '
 
         education_1(message)
 
