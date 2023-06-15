@@ -74,7 +74,7 @@ def clear_sheet():
 # schedule.every(2).hours.do(send_email)
 # schedule.every(2).minutes.do(send_email)
 
-#while True:
+while True:
     # schedule.run_pending()
     run_pending()
     time.sleep(1)
