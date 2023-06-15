@@ -204,21 +204,23 @@ lang_dict = {'wrong_data': {'Русский 🇷🇺': 'Неверные дан�
 class User:
     def __init__(self, lang):
         self.lang = lang
+        self.cause = None
         self.name = None
         self.surname = None
         self.day = '-'
         self.month = '-'
         self.year = '-'
         self.number = None
-        self.town = 'Null'
-        self.district = 'Null'
-        self.town_and_district = 'Null'
+        self.town = None
+        self.district = None
+        self.town_and_district = None
         self.education = None
         self.uz_language = None
         self.ru_language = None
         self.en_language = None
         self.work = None
-        self.work_experience = 'Null'
+        self.work_experience = None
+        self.time_for_call = None
         
         
 
@@ -863,12 +865,17 @@ def ask_work_experience(message):
         response_date = now.strftime("%d.%m.%Y %H:%M:%S")
 
         birthday = user.day + "." + str(user.month).replace(" ", "") + "." + user.year
-
+        town_and_district = None
+        if(user.town = None):
+            town_and_district = user.town_and_district
+        else:
+            town_and_district = user.town + "/" + user.district
+            
+            
         wb = load_workbook(filename)
         ws = wb['Лист1']
-        ws.append([response_date, user.surname, user.name, user.number, birthday, user.town, user.district,
-                   user.town_and_district, user.education, user.uz_language, user.ru_language, user.en_language,
-                   user.work_experience])
+        ws.append([response_date, user.lang, user.cause, user.surname, user.name, user.number, birthday, town_and_district, user.education, user.uz_language, user.ru_language, user.en_language,
+                   user.work_experience, user.time_for_call])
         wb.save(filename)
         print("saved 1")
         wb.close()
@@ -1179,12 +1186,17 @@ def edu(call):
             response_date = now.strftime("%d.%m.%Y %H:%M:%S")
 
             birthday = user.day + "." + str(user.month).replace(" ", "") + "." + user.year
-
+            town_and_district = None
+            if(user.town = None):  
+                town_and_district = user.town_and_district
+            else:
+                town_and_district = user.town + "/" + user.district
+            
+            
             wb = load_workbook(filename)
             ws = wb['Лист1']
-            ws.append([response_date, user.surname, user.name, user.number, birthday, user.town, user.district,
-                       user.town_and_district, user.education, user.uz_language, user.ru_language, user.en_language,
-                       user.work_experience])
+            ws.append([response_date, user.lang, user.cause, user.surname, user.name, user.number, birthday, town_and_district, user.education, user.uz_language, user.ru_language, user.en_language,
+                   user.work_experience, user.time_for_call])
             wb.save(filename)
             print("saved 2")
             wb.close()
@@ -1659,7 +1671,7 @@ def edu(call):
                 if(now.year - int(user.year)<18):
                     wb = load_workbook(filename)
                     ws = wb['Лист1']
-                    ws.append([response_date, user.surname, user.name, user.number, birthday])
+                    ws.append([response_date, user.lang, user.cause, user.surname, user.name, user.number, birthday])
                     #ws.cell(row = ws.max_row, column = 5).font = opx.styles.Font(color='ff0816')
                     wb.save(filename)
                     wb.close()
@@ -1670,7 +1682,7 @@ def edu(call):
                     if(user.month == '0 5' or user.month == '0 6' or user.month == '0 7' or user.month == '0 8' or user.month == '0 9' or user.month == '1 0' or user.month == '1 1' or user.month == '1 2'):
                         wb = load_workbook(filename)
                         ws = wb['Лист1']
-                        ws.append([response_date, user.surname, user.name, user.number, birthday])
+                        ws.append([response_date, user.lang, user.cause, user.surname, user.name, user.number, birthday])
                         #ws.cell(row = ws.max_row, column = 5).font = opx.styles.Font(color='ff0816')
                         wb.save(filename)
                         wb.close()
