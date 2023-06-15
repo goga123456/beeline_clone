@@ -865,7 +865,7 @@ def ask_work_experience(message):
         response_date = now.strftime("%d.%m.%Y %H:%M:%S")
 
         birthday = user.day + "." + str(user.month).replace(" ", "") + "." + user.year
-        town_and_district = None
+   
         if(user.town == None):
             town_and_district = user.town_and_district
         else:
@@ -1186,7 +1186,7 @@ def edu(call):
             response_date = now.strftime("%d.%m.%Y %H:%M:%S")
 
             birthday = user.day + "." + str(user.month).replace(" ", "") + "." + user.year
-            town_and_district = None
+   
             if(user.town == None):  
                 town_and_district = user.town_and_district
             else:
