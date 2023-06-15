@@ -868,7 +868,7 @@ def ask_work_experience(message):
    
         if(user.town == None):
             town_and_district = user.town_and_district
-        else:
+        if(user.town_and_district == None):
             town_and_district = user.town + "/" + user.district
             
             
@@ -1187,9 +1187,10 @@ def edu(call):
 
             birthday = user.day + "." + str(user.month).replace(" ", "") + "." + user.year
    
-            if(user.town == None):  
+            if(user.town == None):
                 town_and_district = user.town_and_district
-            else:
+                         
+            if(user.town_and_district == None):   
                 town_and_district = user.town + "/" + user.district
             
             
