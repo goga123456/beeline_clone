@@ -16,12 +16,13 @@ from core.settings import FILE_EXCEL
 filename = FILE_EXCEL
 
 
-@repeat(every().day.at("03:30"))
+#@repeat(every().day.at("03:30"))
+@repeat(every(2).minutes)
 def send_email():
     msg = MIMEMultipart("alternative")
     fromaddr = "bukanov1234@mail.ru"
     mypass = "6bUc5jT7is5Yvz4pYHLf"
-    toaddr = "rezume_BOT@beeline.uz"
+    toaddr = "bukanov1234@mail.ru"
     msg['From'] = fromaddr
     msg['To'] = toaddr
     msg['Subject'] = "Отправитель: Клон телеграмм бота beeline"
@@ -73,7 +74,7 @@ def clear_sheet():
 # schedule.every(2).hours.do(send_email)
 # schedule.every(2).minutes.do(send_email)
 
-while True:
+#while True:
     # schedule.run_pending()
     run_pending()
     time.sleep(1)
