@@ -112,11 +112,11 @@ lang_dict = {'wrong_data': {'Русский 🇷🇺': 'Неверные дан�
              'wrong_work_datas': {
                  'Русский 🇷🇺': ' Вы не могли уйти с работы раньше чем на неё устроились.Год когда вы устроились на работу?',
                  'Oʻzbek tili 🇺🇿': 'Siz tashkilotdan boʻshagan yilingiz - ishga kirgan yilingizdan oldin boʻlishi mumkin emas. Siz tashkilotga ishga kirgan yilni qaytadan kiriting:'},
-             'thank_you': {'Русский 🇷🇺': 'Спасибо за прохождение опроса!!!',
-                           'Oʻzbek tili 🇺🇿': 'So‘rovnomadan o‘tganingiz uchun minnatdormiz!!!'},
+             'thank_you': {'Русский 🇷🇺': 'Супер!👍\nСпасибо за прохождение опроса!\n\nТеперь наш рекрутер оценит твой профиль и созвонится с тобой для проведения первого интервью!',
+                           'Oʻzbek tili 🇺🇿': 'Zoʻr!!👍\nSoʻrovnomada qatnashganingiz uchun rahmat!\n\nEndi biz Sizning profilingizni baholab birinchi suhbatdan oʻtkazish uchun bogʻlanamiz'},
              'sendmail': {
-                 'Русский 🇷🇺': 'Твоя анкета отправлена на рассмотрение.\n\nПодготовься к телефонному собеседованию\n\nСписок примерных вопросов:\n1. Расскажи о себе\n2. Какими качествами должен обладать сотрудник контакт-центра\n3. Твои ожидания по заработной плате',
-                 'Oʻzbek tili 🇺🇿': 'Sizning maʻlumotlaringiz koʻrib chiqish uchun yuborildi.\n\n Telefon orqali suhbatdan oʻtishga tayyorlaning \n\n Berilishi mumkin boʻlgan savollar: \n1. Oʻzingiz haqingizda gapirib bering.\n2. Aloqa markazi xodimi qanday fazilatlarga ega boʻlishi kerak?\n 3. Kutilayotgan maosh?'},
+                 'Русский 🇷🇺': 'Несколько советов  к телефонному интервью:\n\nУбедись, что тебе ничего не будет мешать и ты не будешь отвлекаться на посторонние дела во время телефонного интервью.\n\nЕсли тебе будет неудобно говорить - не стесняйся попросить перенести звонок.\n\nСписок примерных вопросов:\n1. Коротко расскажи о себе\n2. Подробнее расскажи о причинах того, почему ты хочешь работать в Билайн сотрудником Контакт-центра\n3. Что ты ожидаешь получить от работы в Билайн\n\nУдачи :)',
+                 'Oʻzbek tili 🇺🇿': 'Telefon orqali suhbatlashish uchun bir nechta maslahatlar:\n\n Hech narsa sizga xalaqit bermasligiga va telefon orqali suhbat davomida sizni begona narsalar chalgʻitmasligiga ishonch hosil qiling. \n\n Agar gaplashayotganda oʻzingizni noqulay his qilsangiz, qoʻngʻiroqni qayta rejalashtirishni soʻrang.\n\nNamuna savollar roʻyxati: \n1. Oʻzingiz haqingizda qisqacha gapirib bering\n2. Nima uchun “Beeline”da Kontakt Markazi xodimi sifatida ishlashni xohlayotganingiz sabablari haqida ko‘proq gapirib bering.\n 3. “Bilayn”da ishlashdan nimani kutmoqdasiz\n\nOmad :)'},
              'again': {'Русский 🇷🇺': 'Если хочешь пройти опрос заново нажми на кнопку: "/start" ',
                        'Oʻzbek tili 🇺🇿': 'Soʻrovnomadan qaytadan oʻtishni istasangiz quyidagi tugmani bosing: "/start"'},
              'checker': {'Русский 🇷🇺': 'Выбери вариант кнопкой',
@@ -198,7 +198,10 @@ lang_dict = {'wrong_data': {'Русский 🇷🇺': 'Неверные дан�
              'kirill_surname': {'Русский 🇷🇺': 'Введи фамилию на кириллице!',
                            'Oʻzbek tili 🇺🇿': 'Familiyangizni kirill alifbosida kiriting!'},             
              'otkaz': {'Русский 🇷🇺': 'Жаль :(\nПожалуйста, поделись с нами причинами твоего отказа.\nТы нам очень поможешь улучшить наши процессы рекрутинга',
-                           'Oʻzbek tili 🇺🇿': 'Afsus :(\nIltimos, rad etishingiz sabablarini biz bilan baham koʻring.\nIshga qabul qilish jarayonlarimizni yaxshilashda bizga katta yordam berasiz'}
+                           'Oʻzbek tili 🇺🇿': 'Afsus :(\nIltimos, rad etishingiz sabablarini biz bilan baham koʻring.\nIshga qabul qilish jarayonlarimizni yaxshilashda bizga katta yordam berasiz'},
+             
+             'time_for_call': {'Русский 🇷🇺': 'Подскажи нам, в какие дни недели и в какое время тебе будет комфортно пройти телефонное интервью',
+                           'Oʻzbek tili 🇺🇿': 'Haftaning qaysi kunlari va qaysi vaqtda telefon orqali suhbat oʻtkazish siz uchun qulay boʻlishini ayting'}  
              
              
 
