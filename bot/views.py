@@ -765,7 +765,7 @@ def uzb_language(message):
     item4 = types.InlineKeyboardButton(lang_dict['ne_vladeyu'][user.lang], callback_data='Не владею узбекским языком')
     item5 = types.InlineKeyboardButton(lang_dict['back'][user.lang], callback_data='bck_ru')
     markup2.add(item1, item2, item3, item4, item5)
-    bot.send_message(message.chat.id, '7⃣')
+    bot.send_message(message.chat.id, '8⃣')
     bot.send_message(message.chat.id, lang_dict['uzb_language'][user.lang], reply_markup=markup2)
 
 
@@ -780,7 +780,7 @@ def rus_language(message):
     item4 = types.InlineKeyboardButton(lang_dict['ne_vladeyu'][user.lang], callback_data='Не владею русским языком')
     item5 = types.InlineKeyboardButton(lang_dict['back'][user.lang], callback_data='bck_edu')
     markup3.add(item1, item2, item3, item4, item5)
-    bot.send_message(message.chat.id, '8⃣')
+    bot.send_message(message.chat.id, '7⃣')
     bot.send_message(message.chat.id, lang_dict['rus_language'][user.lang], reply_markup=markup3)
 
 
