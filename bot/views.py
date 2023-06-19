@@ -1749,10 +1749,10 @@ def say_cause_of_rejecton(message):
     if (cause == lang_dict['start'][user.lang] or cause == '/start'):
         process_start(message)
         return
-    if not all(x.isascii() or x.isspace() or x.isalnum() for x in cause):
-        msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
-        bot.register_next_step_handler(msg, ask_work_experience)
-        return
+    #if not all(x.isascii() or x.isspace() or x.isalnum() for x in cause):
+        #msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
+        #bot.register_next_step_handler(msg, say_cause_of_rejecton)
+        #return
     user.cause = cause
         
 
