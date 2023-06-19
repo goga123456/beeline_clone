@@ -70,11 +70,11 @@ lang_dict = {'wrong_data': {'Русский 🇷🇺': 'Неверные дан�
                              'Oʻzbek tili 🇺🇿': 'Uyning nomi raqamlar yoki harflardan iborat boʻlishi kerak'},
              'education': {'Русский 🇷🇺': 'Укажи уровень образования',
                            'Oʻzbek tili 🇺🇿': 'Taʻlim darajasini ko‘rsating'},
-             'uzb_language': {'Русский 🇷🇺': 'Степень владения Узбекским языком',
+             'uzb_language': {'Русский 🇷🇺': 'Уровень владения Узбекским языком',
                               'Oʻzbek tili 🇺🇿': 'Oʻzbek tilini bilish darajasi'},
-             'rus_language': {'Русский 🇷🇺': 'Степень владения Русским языком',
+             'rus_language': {'Русский 🇷🇺': 'Уровень владения Русским языком',
                               'Oʻzbek tili 🇺🇿': 'Rus tilini bilish darajasi'},
-             'eng_language': {'Русский 🇷🇺': 'Степень владения Английским языком',
+             'eng_language': {'Русский 🇷🇺': 'Уровень владения Английским языком',
                               'Oʻzbek tili 🇺🇿': 'Ingliz tilini bilish darajasi'},
              'higher': {'Русский 🇷🇺': 'Высшее', 'Oʻzbek tili 🇺🇿': 'Oliy'},
              'incomplete_higher': {'Русский 🇷🇺': 'Неполное высшее', 'Oʻzbek tili 🇺🇿': 'Tugallanmagan oliy'},
@@ -83,10 +83,10 @@ lang_dict = {'wrong_data': {'Русский 🇷🇺': 'Неверные дан�
              'secondary': {'Русский 🇷🇺': 'Среднее', 'Oʻzbek tili 🇺🇿': 'Oʻrta'},
              'incomplete_secondary': {'Русский 🇷🇺': 'Неполное среднее', 'Oʻzbek tili 🇺🇿': 'Tugallanmagan oʻrta'},
              'secondary_special': {'Русский 🇷🇺': 'Среднее специальное', 'Oʻzbek tili 🇺🇿': 'Oʻrta maxsus'},
-             'great': {'Русский 🇷🇺': 'Отлично', 'Oʻzbek tili 🇺🇿': 'A‘lo'},
-             'good': {'Русский 🇷🇺': 'Хорошо', 'Oʻzbek tili 🇺🇿': 'Yaxshi'},
-             'satisfactorily': {'Русский 🇷🇺': 'Удовлетворительно', 'Oʻzbek tili 🇺🇿': 'Qoniqarli'},
-             'ne_vladeyu': {'Русский 🇷🇺': 'Не владею', 'Oʻzbek tili 🇺🇿': 'Bilmayman'},
+             'great': {'Русский 🇷🇺': 'Владею как родным языком :)', 'Oʻzbek tili 🇺🇿': 'Men ona tilimda gapiraman :)'},
+             'good': {'Русский 🇷🇺': 'Могу вести обычные беседы свободно и уверенно', 'Oʻzbek tili 🇺🇿': 'Oddiy suhbatlarni erkin va ishonchli davom ettirishim mumkin'},
+             'satisfactorily': {'Русский 🇷🇺': 'Понимаю язык, но не могу свободно общаться', 'Oʻzbek tili 🇺🇿': 'Men tilni tushunaman, lekin ravon gaplasha olmayman'},
+             'ne_vladeyu': {'Русский 🇷🇺': 'Не владею языком', 'Oʻzbek tili 🇺🇿': 'Men ushbu tilda gapirmayman'},
              'work': {'Русский 🇷🇺': 'Есть ли у тебя опыт работы? (неважно официальный или неофициальный)',
                       'Oʻzbek tili 🇺🇿': 'Siz oldin ishlaganmisiz? (rasmiy yoki norasmiy boʻlishidan qatʻiy nazar)'},
              'work_experience': {
@@ -661,7 +661,7 @@ def choose_district(message):
     try:
         chat_id = message.chat.id
         user = user_dict[chat_id]
-        markup_regions = types.InlineKeyboardMarkup(row_width=4)
+        markup_regions = types.InlineKeyboardMarkup(row_width=3)
         item1 = types.InlineKeyboardButton(lang_dict['Olmazor'][user.lang], callback_data='Олмазарский')
         item2 = types.InlineKeyboardButton(lang_dict['Bektemir'][user.lang], callback_data='Бектемирский')
         item3 = types.InlineKeyboardButton(lang_dict['Mirabad'][user.lang], callback_data='Мирабадский')
@@ -763,7 +763,7 @@ def uzb_language(message):
     item2 = types.InlineKeyboardButton(lang_dict['good'][user.lang], callback_data='Хорошо')
     item3 = types.InlineKeyboardButton(lang_dict['satisfactorily'][user.lang], callback_data='Удовлетворительно')
     item4 = types.InlineKeyboardButton(lang_dict['ne_vladeyu'][user.lang], callback_data='Не владею узбекским языком')
-    item5 = types.InlineKeyboardButton(lang_dict['back'][user.lang], callback_data='bck_edu')
+    item5 = types.InlineKeyboardButton(lang_dict['back'][user.lang], callback_data='bck_ru')
     markup2.add(item1, item2, item3, item4, item5)
     bot.send_message(message.chat.id, '7⃣')
     bot.send_message(message.chat.id, lang_dict['uzb_language'][user.lang], reply_markup=markup2)
@@ -778,7 +778,7 @@ def rus_language(message):
     item2 = types.InlineKeyboardButton(lang_dict['good'][user.lang], callback_data='Хорошо знаю')
     item3 = types.InlineKeyboardButton(lang_dict['satisfactorily'][user.lang], callback_data='Удовлетворительно знаю')
     item4 = types.InlineKeyboardButton(lang_dict['ne_vladeyu'][user.lang], callback_data='Не владею русским языком')
-    item5 = types.InlineKeyboardButton(lang_dict['back'][user.lang], callback_data='bck_uz')
+    item5 = types.InlineKeyboardButton(lang_dict['back'][user.lang], callback_data='bck_edu')
     markup3.add(item1, item2, item3, item4, item5)
     bot.send_message(message.chat.id, '8⃣')
     bot.send_message(message.chat.id, lang_dict['rus_language'][user.lang], reply_markup=markup3)
@@ -793,7 +793,7 @@ def english_language(message):
     item2 = types.InlineKeyboardButton(lang_dict['good'][user.lang], callback_data='Хорошо владею')
     item3 = types.InlineKeyboardButton(lang_dict['satisfactorily'][user.lang], callback_data='Удовлетворительно владею')
     item4 = types.InlineKeyboardButton(lang_dict['ne_vladeyu'][user.lang], callback_data='Не владею английским языком')
-    item5 = types.InlineKeyboardButton(lang_dict['back'][user.lang], callback_data='bck_ru')
+    item5 = types.InlineKeyboardButton(lang_dict['back'][user.lang], callback_data='bck_uz')
     markup4.add(item1, item2, item3, item4, item5)
     bot.send_message(message.chat.id, '9⃣')
     bot.send_message(message.chat.id, lang_dict['eng_language'][user.lang], reply_markup=markup4)
@@ -930,7 +930,7 @@ def edu(call):
             education = call.data
             user.education = education
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            uzb_language(message)
+            rus_language(message)
         if call.data == 'Неполное высшее':
             chat_id = call.message.chat.id
             user = user_dict[chat_id]
@@ -943,7 +943,7 @@ def edu(call):
             education = call.data
             user.education = education
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            uzb_language(message)
+            rus_language(message)
         if call.data == 'Среднее':
             chat_id = call.message.chat.id
             user = user_dict[chat_id]
@@ -956,7 +956,7 @@ def edu(call):
             education = call.data
             user.education = education
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            uzb_language(message)
+            rus_language(message)
         if call.data == 'Неполное среднее':
             chat_id = call.message.chat.id
             user = user_dict[chat_id]
@@ -969,7 +969,7 @@ def edu(call):
             education = call.data
             user.education = education
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            uzb_language(message)
+            rus_language(message)
         if call.data == 'Среднее специальное':
             chat_id = call.message.chat.id
             user = user_dict[chat_id]
@@ -982,7 +982,7 @@ def edu(call):
             education = call.data
             user.education = education
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            uzb_language(message)
+            rus_language(message)
 
         if call.data == 'Отлично':
             chat_id = call.message.chat.id
@@ -997,7 +997,7 @@ def edu(call):
 
             user.uz_language = uz_language
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            rus_language(message)
+            english_language(message)
         if call.data == 'Хорошо':
             chat_id = call.message.chat.id
             user = user_dict[chat_id]
@@ -1011,7 +1011,7 @@ def edu(call):
 
             user.uz_language = uz_language
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            rus_language(message)
+            english_language(message)
         if call.data == 'Удовлетворительно':
             chat_id = call.message.chat.id
             user = user_dict[chat_id]
@@ -1025,7 +1025,7 @@ def edu(call):
 
             user.uz_language = uz_language
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            rus_language(message)
+            english_language(message)
 
         if call.data == 'Не владею узбекским языком':
             chat_id = call.message.chat.id
@@ -1040,7 +1040,7 @@ def edu(call):
 
             user.uz_language = uz_language
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            rus_language(message)
+            english_language(message)
 
         if call.data == 'Отлично знаю':
             chat_id = call.message.chat.id
@@ -1055,7 +1055,7 @@ def edu(call):
 
             user.ru_language = ru_language
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            english_language(message)
+            uzb_language(message)
         if call.data == 'Хорошо знаю':
             chat_id = call.message.chat.id
             user = user_dict[chat_id]
@@ -1069,7 +1069,7 @@ def edu(call):
 
             user.ru_language = ru_language
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            english_language(message)
+            uzb_language(message)
         if call.data == 'Удовлетворительно знаю':
             chat_id = call.message.chat.id
             user = user_dict[chat_id]
@@ -1083,7 +1083,7 @@ def edu(call):
 
             user.ru_language = ru_language
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            english_language(message)
+            uzb_language(message)
 
         if call.data == 'Не владею русским языком':
             chat_id = call.message.chat.id
@@ -1098,7 +1098,7 @@ def edu(call):
 
             user.ru_language = ru_language
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            english_language(message)
+            uzb_language(message)
 
         if call.data == 'Отлично владею':
             chat_id = call.message.chat.id
@@ -1742,48 +1742,48 @@ def say_the_cause(message):
     
 @bot.message_handler(content_types=['text'])
 def say_cause_of_rejecton(message):
-    #try:
-    chat_id = message.chat.id
-    cause = message.text
-    user = user_dict[chat_id]
+    try:
+        chat_id = message.chat.id
+        cause = message.text
+        user = user_dict[chat_id]
 
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-    btn = types.KeyboardButton(lang_dict['start'][user.lang])
-    markup.row(btn)
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+        btn = types.KeyboardButton(lang_dict['start'][user.lang])
+        markup.row(btn)
 
         
-    if (cause == lang_dict['start'][user.lang] or cause == '/start'):
-        process_start(message)
-        return
-    #if not all(x.isascii() or x.isspace() or x.isalnum() for x in cause):
-        #msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
-        #bot.register_next_step_handler(msg, say_cause_of_rejecton)
-        #return
-    user.cause = cause
+        if (cause == lang_dict['start'][user.lang] or cause == '/start'):
+            process_start(message)
+            return
+        if not all(x.isascii() or x.isspace() or x.isalnum() for x in cause):
+            msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
+            bot.register_next_step_handler(msg, say_cause_of_rejecton)
+            return
+        user.cause = cause
         
 
-    now = datetime.now()
-    response_date = now.strftime("%d.%m.%Y %H:%M:%S")
+        now = datetime.now()
+        response_date = now.strftime("%d.%m.%Y %H:%M:%S")
 
             
-    wb = load_workbook(filename)
-    ws = wb['Лист1']
-    ws.append([response_date, user.lang, user.cause])
-    wb.save(filename)
-    wb.close()
+        wb = load_workbook(filename)
+        ws = wb['Лист1']
+        ws.append([response_date, user.lang, user.cause])
+        wb.save(filename)
+        wb.close()
 
-    markup_start = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-    btn = types.KeyboardButton('/start')
-    markup_start.row(btn)
+        markup_start = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+        btn = types.KeyboardButton('/start')
+        markup_start.row(btn)
 
-    bot.send_message(message.chat.id, lang_dict['again'][user.lang], reply_markup=markup_start)
+        bot.send_message(message.chat.id, lang_dict['again'][user.lang], reply_markup=markup_start)
 
 
-    #except Exception:
-        #chat_id = message.chat.id
-        #user = user_dict[chat_id]
-        #msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
-        #bot.register_next_step_handler(msg, say_cause_of_rejecton)
+    except Exception:
+        chat_id = message.chat.id
+        user = user_dict[chat_id]
+        msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
+        bot.register_next_step_handler(msg, say_cause_of_rejecton)
     
 
 
