@@ -906,7 +906,7 @@ def ask_time_for_call(message):
             markup_o.row(item1, item2)
             markup_o.row(item3)
             
-            bot.send_message(message.chat.id, '🔟', reply_markup=markup)
+            bot.send_message(message.chat.id, '🔟', reply_markup=markup__v1)
             bot.send_message(message.chat.id, lang_dict['work'][user.lang], reply_markup=markup_o)
             return
         if (time_for_call == lang_dict['start'][user.lang] or time_for_call == '/start'):
@@ -1234,13 +1234,18 @@ def edu(call):
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
             btn = types.KeyboardButton(lang_dict['start'][user.lang])
             markup.row(btn)
+            
+            markup__v1 = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+            btn_1 = types.KeyboardButton(lang_dict['start'][user.lang])
+            btn_2 = types.KeyboardButton(lang_dict['back'][user.lang])
+            markup__v1.row(btn_1, btn_2)
 
             work = call.data
 
             user.work = work
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
             
-            msg = bot.send_message(message.chat.id, lang_dict['time_for_call'][user.lang])   
+            msg = bot.send_message(message.chat.id, lang_dict['time_for_call'][user.lang], reply_markup=markup__v1 )   
             bot.register_next_step_handler(msg, ask_time_for_call)
             
         if call.data == 'bck_edu':
