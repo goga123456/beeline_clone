@@ -1467,10 +1467,6 @@ def edu(call):
         if call.data == 'Отказаться':
             chat_id = call.message.chat.id
             user = user_dict[chat_id]
-            
-            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-            btn = types.KeyboardButton(lang_dict['start'][user.lang])
-            markup.row(btn)
 
             wb = load_workbook(filename)
             ws = wb['Лист2']
@@ -1479,8 +1475,8 @@ def edu(call):
             wb.close()
             
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            bot.send_message(message.chat.id, lang_dict['otkaz'][user.lang], reply_markup=markup)
-            say_cause_of_rejecton(message)
+       
+            say_the_cause(message)
 
         if call.data == 'Хочу_в_билайн':
             chat_id = call.message.chat.id
@@ -1505,9 +1501,7 @@ def edu(call):
             chat_id = call.message.chat.id
             user = user_dict[chat_id]
             
-            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-            btn = types.KeyboardButton(lang_dict['start'][user.lang])
-            markup.row(btn)
+           
             
             wb = load_workbook(filename)
             ws = wb['Лист2']
@@ -1516,8 +1510,8 @@ def edu(call):
             wb.close()
             
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-            bot.send_message(message.chat.id, lang_dict['otkaz'][user.lang], reply_markup=markup)
-            say_cause_of_rejecton(message)
+            
+            say_the_cause(message)
 
         if call.data == 'Назад к предыдущему тексту':
             chat_id = call.message.chat.id
@@ -1732,6 +1726,18 @@ def less_18(message):
     markup_start.row(btn)
 
     bot.send_message(message.chat.id, lang_dict['again'][user.lang], reply_markup=markup_start)
+    
+
+def say_the_cause(message):
+    chat_id = message.chat.id
+    user = user_dict[chat_id]
+    
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+    btn = types.KeyboardButton(lang_dict['start'][user.lang])
+    markup.row(btn)
+    
+    msg = bot.send_message(message.chat.id, lang_dict['otkaz'][user.lang], reply_markup=markup)
+    bot.register_next_step_handler(msg, say_cause_of_rejecton)    
     
     
 @bot.message_handler(content_types=['text'])
