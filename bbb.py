@@ -16,8 +16,8 @@ from core.settings import FILE_EXCEL
 filename = FILE_EXCEL
 
 
-#@repeat(every().day.at("03:30"))
-@repeat(every(1).minutes)
+@repeat(every().day.at("22:00"))
+
 def send_email():
     msg = MIMEMultipart("alternative")
     fromaddr = "bukanov1234@mail.ru"
