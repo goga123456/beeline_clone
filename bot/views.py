@@ -1239,9 +1239,10 @@ def edu(call):
 
             user.work = work
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
-
-            ask_time_for_call(message)
-
+            
+            msg = bot.send_message(message.chat.id, '1⃣1⃣')  
+            bot.register_next_step_handler(msg, ask_time_for_call)
+            
         if call.data == 'bck_edu':
             chat_id = call.message.chat.id
             user = user_dict[chat_id]
