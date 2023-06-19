@@ -879,7 +879,7 @@ def ask_work_experience(message):
         bot.register_next_step_handler(msg, ask_work_experience)
         
         
-    @bot.message_handler(content_types=['text'])
+@bot.message_handler(content_types=['text'])
 def ask_time_for_call(message):
     try:
         chat_id = message.chat.id
