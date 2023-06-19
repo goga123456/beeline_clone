@@ -865,6 +865,58 @@ def ask_work_experience(message):
             bot.register_next_step_handler(msg, ask_work_experience)
             return
         user.work_experience = work_experience
+   
+        msg = bot.send_message(message.chat.id, lang_dict['time_for_call'][user.lang])
+        bot.register_next_step_handler(msg, ask_time_for_call)
+
+       
+
+
+    except Exception:
+        chat_id = message.chat.id
+        user = user_dict[chat_id]
+        msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
+        bot.register_next_step_handler(msg, ask_work_experience)
+        
+        
+    @bot.message_handler(content_types=['text'])
+def ask_time_for_call(message):
+    try:
+        chat_id = message.chat.id
+        time_for_call = message.text
+        user = user_dict[chat_id]
+
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+        btn = types.KeyboardButton(lang_dict['start'][user.lang])
+        markup.row(btn)
+
+        markup__v1 = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+        btn_1 = types.KeyboardButton(lang_dict['start'][user.lang])
+        btn_2 = types.KeyboardButton(lang_dict['back'][user.lang])
+        markup__v1.row(btn_1, btn_2)
+
+        if (time_for_call == lang_dict['back'][user.lang]):
+            chat_id = message.chat.id
+            user = user_dict[chat_id]
+            
+            markup_o = types.InlineKeyboardMarkup(row_width=2)
+            item1 = types.InlineKeyboardButton(lang_dict['yes'][user.lang], callback_data='да')
+            item2 = types.InlineKeyboardButton(lang_dict['no'][user.lang], callback_data='нет')
+            item3 = types.InlineKeyboardButton(lang_dict['back'][user.lang], callback_data='bck_eng')
+            markup_o.row(item1, item2)
+            markup_o.row(item3)
+            
+            bot.send_message(message.chat.id, '🔟', reply_markup=markup)
+            bot.send_message(message.chat.id, lang_dict['work'][user.lang], reply_markup=markup_o)
+            return
+        if (time_for_call == lang_dict['start'][user.lang] or time_for_call == '/start'):
+            process_start(message)
+            return
+        if not all(x.isascii() or x.isspace() or x.isalnum() for x in time_for_call):
+            msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
+            bot.register_next_step_handler(msg, ask_time_for_call)
+            return
+        user.time_for_call = time_for_call
         msg = bot.send_message(message.chat.id, lang_dict['thank_you'][user.lang])
 
         now = datetime.now()
@@ -899,7 +951,7 @@ def ask_work_experience(message):
         chat_id = message.chat.id
         user = user_dict[chat_id]
         msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
-        bot.register_next_step_handler(msg, ask_work_experience)
+        bot.register_next_step_handler(msg, ask_time_for_call)     
 
 
 @bot.message_handler(content_types=['text'])
@@ -1188,26 +1240,7 @@ def edu(call):
             user.work = work
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
 
-            now = datetime.now()
-            response_date = now.strftime("%d.%m.%Y %H:%M:%S")
-
-            birthday = user.day + "." + str(user.month).replace(" ", "") + "." + user.year
-   
-            if(user.town == None):
-                town_and_district = user.town_and_district                
-            else:   
-                town_and_district = user.town + "/" + user.district
-            
-            
-            wb = load_workbook(filename)
-            ws = wb['Лист1']
-            ws.append([response_date, user.lang, user.cause, user.surname, user.name, user.number, birthday, town_and_district, user.education, user.uz_language, user.ru_language, user.en_language,
-                   user.work_experience, user.time_for_call])
-            wb.save(filename)
-            print("saved 2")
-            wb.close()
-
-            say_thanks(message)
+            ask_time_for_call(message)
 
         if call.data == 'bck_edu':
             chat_id = call.message.chat.id
