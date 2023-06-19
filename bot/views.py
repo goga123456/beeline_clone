@@ -196,7 +196,11 @@ lang_dict = {'wrong_data': {'Русский 🇷🇺': 'Неверные дан�
              'kirill_name': {'Русский 🇷🇺': 'Введи имя на кириллице!',
                            'Oʻzbek tili 🇺🇿': 'Ismni kirill alifbosida kiriting!'},
              'kirill_surname': {'Русский 🇷🇺': 'Введи фамилию на кириллице!',
-                           'Oʻzbek tili 🇺🇿': 'Familiyangizni kirill alifbosida kiriting!'}
+                           'Oʻzbek tili 🇺🇿': 'Familiyangizni kirill alifbosida kiriting!'},             
+             'otkaz': {'Русский 🇷🇺': 'Жаль :(\nПожалуйста, поделись с нами причинами твоего отказа.\nТы нам очень поможешь улучшить наши процессы рекрутинга',
+                           'Oʻzbek tili 🇺🇿': 'Afsus :(\nIltimos, rad etishingiz sabablarini biz bilan baham koʻring.\nIshga qabul qilish jarayonlarimizni yaxshilashda bizga katta yordam berasiz'}
+             
+             
 
              }
 
@@ -1464,14 +1468,19 @@ def edu(call):
             chat_id = call.message.chat.id
             user = user_dict[chat_id]
             
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+            btn = types.KeyboardButton(lang_dict['start'][user.lang])
+            markup.row(btn)
+
             wb = load_workbook(filename)
             ws = wb['Лист2']
             ws['B2'].value = ws['B2'].value+1
             wb.save(filename)
             wb.close()
             
-            send_nothing(message)
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
+            bot.send_message(message.chat.id, lang_dict['otkaz'][user.lang], reply_markup=markup)
+            say_cause_of_rejecton(message)
 
         if call.data == 'Хочу_в_билайн':
             chat_id = call.message.chat.id
@@ -1496,14 +1505,19 @@ def edu(call):
             chat_id = call.message.chat.id
             user = user_dict[chat_id]
             
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+            btn = types.KeyboardButton(lang_dict['start'][user.lang])
+            markup.row(btn)
+            
             wb = load_workbook(filename)
             ws = wb['Лист2']
             ws['D2'].value = ws['D2'].value+1
             wb.save(filename)
             wb.close()
             
-            send_nothing(message)
             bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
+            bot.send_message(message.chat.id, lang_dict['otkaz'][user.lang], reply_markup=markup)
+            say_cause_of_rejecton(message)
 
         if call.data == 'Назад к предыдущему тексту':
             chat_id = call.message.chat.id
@@ -1701,31 +1715,10 @@ def edu(call):
                     ask_town(message)
                     
 
-
-
-
-
-
-                
-
-
-
-
     except Exception as e:
-        bot.reply_to(message, "ERROR")
+        bot.reply_to(message, "Пожалуйста перезапустите бот, на сервере проводились работы\n\nIltimos, botni qayta ishga tushiring, serverda ish bajarildi")
 
 
-def send_nothing(message):
-    chat_id = message.chat.id
-    user = user_dict[chat_id]
-
-    bot.send_message(message.chat.id, lang_dict['rejection'][user.lang])
-
-    markup_start = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-    btn = types.KeyboardButton('/start')
-    markup_start.row(btn)
-
-    bot.send_message(message.chat.id, lang_dict['again'][user.lang], reply_markup=markup_start)
 
 
 def less_18(message):
@@ -1739,6 +1732,53 @@ def less_18(message):
     markup_start.row(btn)
 
     bot.send_message(message.chat.id, lang_dict['again'][user.lang], reply_markup=markup_start)
+    
+    
+@bot.message_handler(content_types=['text'])
+def say_cause_of_rejecton(message):
+    try:
+        chat_id = message.chat.id
+        cause = message.text
+        user = user_dict[chat_id]
+
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+        btn = types.KeyboardButton(lang_dict['start'][user.lang])
+        markup.row(btn)
+
+        
+        if (cause == lang_dict['start'][user.lang] or cause == '/start'):
+            process_start(message)
+            return
+        if not all(x.isascii() or x.isspace() or x.isalnum() for x in cause):
+            msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
+            bot.register_next_step_handler(msg, ask_work_experience)
+            return
+        user.cause = cause
+        
+
+        now = datetime.now()
+        response_date = now.strftime("%d.%m.%Y %H:%M:%S")
+
+            
+        wb = load_workbook(filename)
+        ws = wb['Лист1']
+        ws.append([response_date, user.lang, user.cause])
+        wb.save(filename)
+        wb.close()
+
+        markup_start = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+        btn = types.KeyboardButton('/start')
+        markup_start.row(btn)
+
+        bot.send_message(message.chat.id, lang_dict['again'][user.lang], reply_markup=markup_start)
+
+
+    except Exception:
+        chat_id = message.chat.id
+        user = user_dict[chat_id]
+        msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
+        bot.register_next_step_handler(msg, say_cause_of_rejecton)
+    
 
 
 
