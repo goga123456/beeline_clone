@@ -1736,48 +1736,48 @@ def less_18(message):
     
 @bot.message_handler(content_types=['text'])
 def say_cause_of_rejecton(message):
-    try:
-        chat_id = message.chat.id
-        cause = message.text
-        user = user_dict[chat_id]
+    #try:
+    chat_id = message.chat.id
+    cause = message.text
+    user = user_dict[chat_id]
 
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-        btn = types.KeyboardButton(lang_dict['start'][user.lang])
-        markup.row(btn)
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+    btn = types.KeyboardButton(lang_dict['start'][user.lang])
+    markup.row(btn)
 
         
-        if (cause == lang_dict['start'][user.lang] or cause == '/start'):
-            process_start(message)
-            return
-        if not all(x.isascii() or x.isspace() or x.isalnum() for x in cause):
-            msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
-            bot.register_next_step_handler(msg, ask_work_experience)
-            return
-        user.cause = cause
+    if (cause == lang_dict['start'][user.lang] or cause == '/start'):
+        process_start(message)
+        return
+    if not all(x.isascii() or x.isspace() or x.isalnum() for x in cause):
+        msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
+        bot.register_next_step_handler(msg, ask_work_experience)
+        return
+    user.cause = cause
         
 
-        now = datetime.now()
-        response_date = now.strftime("%d.%m.%Y %H:%M:%S")
+    now = datetime.now()
+    response_date = now.strftime("%d.%m.%Y %H:%M:%S")
 
             
-        wb = load_workbook(filename)
-        ws = wb['Лист1']
-        ws.append([response_date, user.lang, user.cause])
-        wb.save(filename)
-        wb.close()
+    wb = load_workbook(filename)
+    ws = wb['Лист1']
+    ws.append([response_date, user.lang, user.cause])
+    wb.save(filename)
+    wb.close()
 
-        markup_start = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-        btn = types.KeyboardButton('/start')
-        markup_start.row(btn)
+    markup_start = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+    btn = types.KeyboardButton('/start')
+    markup_start.row(btn)
 
-        bot.send_message(message.chat.id, lang_dict['again'][user.lang], reply_markup=markup_start)
+    bot.send_message(message.chat.id, lang_dict['again'][user.lang], reply_markup=markup_start)
 
 
-    except Exception:
-        chat_id = message.chat.id
-        user = user_dict[chat_id]
-        msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
-        bot.register_next_step_handler(msg, say_cause_of_rejecton)
+    #except Exception:
+        #chat_id = message.chat.id
+        #user = user_dict[chat_id]
+        #msg = bot.reply_to(message, lang_dict['wrong_data'][user.lang])
+        #bot.register_next_step_handler(msg, say_cause_of_rejecton)
     
 
 
